@@ -11,6 +11,12 @@ static int status[N] = { LOW, LOW, LOW, LOW, LOW };
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
+void blink_led() {
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(50);
+  digitalWrite(LED_BUILTIN, LOW);
+}
+
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
     for (int i = 0; i < N; ++i) {
@@ -21,6 +27,7 @@ void setup() {
 
 void status_change(int n) {
   MIDI.sendNoteOn(60 + n, 127, 1);    // Send a Note (pitch 42, velo 127 on channel 1)
+  blink_led();
 }
 
 void check_status() {
@@ -33,10 +40,9 @@ void check_status() {
       else {
         status[i] = LOW;
       }
+      status_change(i);
     }
-    status_change(i);
   }
-  digitalWrite(LED_BUILTIN, status[0]);
 }
 
 void loop() {
