@@ -41,7 +41,7 @@ void setup() {
 }
 
 void status_change(int n) {
-  MIDI.sendNoteOn(60 + n, 127, OUTPUT_CHS[n]);    // Send a Note (pitch 42, velo 127 on channel 1)
+  MIDI.sendNoteOn(60, 127, OUTPUT_CHS[n]);    // Send a Note (pitch 42, velo 127 on channel 1)
   blink_led();
 }
 
