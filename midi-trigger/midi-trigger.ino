@@ -6,7 +6,16 @@
 
 #define N 5
 
-const int triggers[N] = { A0, 6, 9, 10, 12 };
+const int DTCT0 = 6;
+const int DTCT1 = 9;
+const int DTCT2 = 10;
+const int DTCT3 = 12;
+const int ANLG0 = A0;
+const int ANLG1 = A1;
+const int ANLG2 = A2;
+const int ANLG3 = A3;
+
+const int triggers[N] = { DTCT0, ANLG0, DTCT1, ANLG1, DTCT2 };
 static int status[N] = { LOW, LOW, LOW, LOW, LOW };
 
 MIDI_CREATE_DEFAULT_INSTANCE();
