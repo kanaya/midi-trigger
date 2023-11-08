@@ -1,4 +1,4 @@
-// v0.0.4
+// v0.0.5
 
 #include <MIDI.h>
 
@@ -55,9 +55,11 @@ void check_status() {
     int s = digitalRead(triggers[i]);
     if (s != status[i]) {
       if (status[i] == LOW) {
+        // LOW -> HIGH
         status[i] = HIGH;
       }
       else {
+        // HIGH -> LOW
         status[i] = LOW;
         status_change(i);
       }
