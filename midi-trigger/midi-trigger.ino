@@ -39,10 +39,18 @@ void setup() {
     for (int i = 0; i < N; ++i) {
       pinMode(triggers[i], INPUT_PULLUP);
     }
+    read_status();
     MIDI.begin(4);                      // Launch MIDI and listen to channel 4
     for (int i = 0; i < N; ++i) {
       MIDI.sendNoteOff(60 + i, 0, 1);
     }
+}
+
+void read_status() {
+  for (int i = 0; i < N; ++i) {
+    int s = digitalRead(triggers[i]);
+    status[i] = s;
+  }
 }
 
 void status_change(int n) {
