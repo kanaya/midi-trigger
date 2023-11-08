@@ -1,4 +1,4 @@
-// v0.0.6
+// v0.0.8
 
 #include <MIDI.h>
 
@@ -30,8 +30,9 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 
 void blink_led() {
   digitalWrite(LED_BUILTIN, HIGH);
-  delay(50);
+  delay(25);
   digitalWrite(LED_BUILTIN, LOW);
+  delay(25);
 }
 
 void setup() {
@@ -53,8 +54,13 @@ void read_status() {
   }
 }
 
-void status_change(int n) {
+void status_off_to_on(int n) {
   MIDI.sendNoteOn(60 + n, 127, 1);
+  blink_led();
+}
+
+void status_on_to_off(int n) {
+  MIDI.sendNoteOff(60 + n, 0, 1);
   blink_led();
 }
 
@@ -65,12 +71,12 @@ void check_status() {
       if (status[i] == LOW) {
         // LOW -> HIGH
         status[i] = HIGH;
-        status_change(i);
+        status_on_to_off(i);
       }
       else {
         // HIGH -> LOW
         status[i] = LOW;
-        status_change(i);
+        status_off_to_on(i);
       }
     }
   }
