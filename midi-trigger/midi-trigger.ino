@@ -1,4 +1,4 @@
-// v0.0.5
+// v0.0.6
 
 #include <MIDI.h>
 
@@ -57,6 +57,7 @@ void check_status() {
       if (status[i] == LOW) {
         // LOW -> HIGH
         status[i] = HIGH;
+        status_change(i);
       }
       else {
         // HIGH -> LOW
