@@ -1,4 +1,4 @@
-// v0.0.3
+// v0.0.4
 
 #include <MIDI.h>
 
@@ -24,7 +24,7 @@ const int OUTPUT_CHS2[N] = { 6, 7, 8, 9, 10 };
 const int OUTPUT_CHS3[N] = { 11, 12, 13, 14, 15 };
 
 const int triggers[N] = { DTCT0, ANLG0, DTCT1, ANLG1, DTCT2 };
-static int status[N] = { LOW, LOW, LOW, LOW, LOW };
+static int status[N] = { HIGH, HIGH, HIGH, HIGH, HIGH };
 
 MIDI_CREATE_DEFAULT_INSTANCE();
 
@@ -40,6 +40,9 @@ void setup() {
       pinMode(triggers[i], INPUT_PULLUP);
     }
     MIDI.begin(4);                      // Launch MIDI and listen to channel 4
+    for (int i = 0; i < N; ++i) {
+      MIDI.sendNoteOff(60 + i, 0, 1);
+    }
 }
 
 void status_change(int n) {
@@ -53,11 +56,10 @@ void check_status() {
     if (s != status[i]) {
       if (status[i] == LOW) {
         status[i] = HIGH;
-        status_change(i);
       }
       else {
         status[i] = LOW;
-        // status_change(i);
+        status_change(i);
       }
     }
   }
