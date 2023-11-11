@@ -1,4 +1,4 @@
-// v0.0.8
+// v1.0.0
 
 #include <MIDI.h>
 
@@ -7,6 +7,8 @@
 // will blink a led and play back a note for 1 second.
 
 #define N 5
+
+const int base_note = 60;
 
 #define OUTPUT_CHS OUTPUT_CHS1
 
@@ -43,7 +45,7 @@ void setup() {
     read_status();
     MIDI.begin(4);                      // Launch MIDI and listen to channel 4
     for (int i = 0; i < N; ++i) {
-      MIDI.sendNoteOff(60 + i, 0, 1);
+      MIDI.sendNoteOff(base_note + i, 0, 1);
     }
 }
 
@@ -55,12 +57,12 @@ void read_status() {
 }
 
 void status_off_to_on(int n) {
-  MIDI.sendNoteOn(60 + n, 127, 1);
+  MIDI.sendNoteOn(base_note + n, 127, 1);
   blink_led();
 }
 
 void status_on_to_off(int n) {
-  MIDI.sendNoteOff(60 + n, 0, 1);
+  MIDI.sendNoteOff(base_note + n, 0, 1);
   blink_led();
 }
 
